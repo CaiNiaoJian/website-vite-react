@@ -66,6 +66,16 @@ const translationZH = {
   }
 };
 
+// 安全地获取localStorage
+const getSavedLanguage = () => {
+  try {
+    return localStorage.getItem('language') || 'zh';
+  } catch (e) {
+    // 如果在服务器端或localStorage不可用
+    return 'zh';
+  }
+};
+
 // 配置i18next
 i18n
   .use(initReactI18next) // 将i18n实例传递给react-i18next
@@ -78,7 +88,7 @@ i18n
         translation: translationZH
       }
     },
-    lng: localStorage.getItem('language') || 'zh', // 默认语言
+    lng: getSavedLanguage(), // 默认语言
     fallbackLng: 'en', // 备用语言
     interpolation: {
       escapeValue: false // 不转义插值中的HTML
@@ -90,5 +100,10 @@ export default i18n;
 // 语言切换函数
 export const changeLanguage = (language: string) => {
   i18n.changeLanguage(language);
-  localStorage.setItem('language', language);
+  try {
+    localStorage.setItem('language', language);
+  } catch (e) {
+    // 处理localStorage不可用的情况
+    console.warn('LocalStorage is not available');
+  }
 }; 

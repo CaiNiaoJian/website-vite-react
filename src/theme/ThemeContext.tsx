@@ -16,12 +16,19 @@ type ThemeProviderProps = {
   children: ReactNode;
 };
 
+// 安全地获取保存的主题
+const getSavedTheme = () => {
+  try {
+    return localStorage.getItem('theme') || 'light';
+  } catch (e) {
+    // 如果在服务器端或localStorage不可用
+    return 'light';
+  }
+};
+
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   // 从localStorage获取保存的主题偏好，默认为light
-  const [theme, setTheme] = useState(() => {
-    const savedTheme = localStorage.getItem('theme');
-    return savedTheme || 'light';
-  });
+  const [theme, setTheme] = useState(getSavedTheme);
 
   // 切换主题函数
   const toggleTheme = () => {
@@ -31,7 +38,11 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
   // 当主题变化时，更新localStorage和文档根元素的数据属性
   useEffect(() => {
-    localStorage.setItem('theme', theme);
+    try {
+      localStorage.setItem('theme', theme);
+    } catch (e) {
+      console.warn('LocalStorage is not available');
+    }
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
