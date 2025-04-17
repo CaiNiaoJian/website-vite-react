@@ -124,7 +124,7 @@ const Hero: React.FC = () => {
             transition={{ duration: 0.6 }}
           >
             <ProfileImage 
-              src="https://github.com/healthjian.github.io/images/hero-master.avif" 
+              src="public\images\hero-master.avif" 
               alt="Author" 
             />
           </MotionDiv>

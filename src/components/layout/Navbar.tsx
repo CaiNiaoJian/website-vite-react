@@ -124,7 +124,7 @@ const Navbar: React.FC = () => {
     <NavbarContainer>
       <NavbarContent>
         <LogoContainer>
-          <Logo src="https://github.com/healthjian.github.io/images/githubherofigureimage.png" alt="Logo" />
+          <Logo src="public\images\githubherofigureimage.png" alt="Logo" />
         </LogoContainer>
         
         <NavLinks>
