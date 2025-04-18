@@ -95,15 +95,19 @@ const UpdateCard = styled.div`
   box-shadow: 0 4px 12px ${({ theme }) => theme.shadow};
 `;
 
-const UpdateHeader = styled.div<{ isOpen: boolean }>`
+interface UpdateHeaderProps {
+  $isOpen: boolean;
+}
+
+const UpdateHeader = styled.div<UpdateHeaderProps>`
   padding: 1.25rem 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
   transition: background-color 0.2s;
-  background-color: ${({ isOpen, theme }) => 
-    isOpen ? `${theme.primary}15` : 'transparent'};
+  background-color: ${({ $isOpen, theme }) => 
+    $isOpen ? `${theme.primary}15` : 'transparent'};
   
   &:hover {
     background-color: ${({ theme }) => `${theme.primary}10`};
@@ -182,7 +186,7 @@ const BlogUpdates: React.FC = () => {
           {updates.map(update => (
             <UpdateCard key={update.id}>
               <UpdateHeader 
-                isOpen={openUpdate === update.id}
+                $isOpen={openUpdate === update.id}
                 onClick={() => toggleUpdate(update.id)}
               >
                 <UpdateTitle>

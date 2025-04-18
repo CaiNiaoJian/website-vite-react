@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import { NavLink as RouterLink } from 'react-router-dom';
 import { FaGithub, FaEnvelope, FaSteam } from 'react-icons/fa';
 import { BsMoonFill, BsSunFill } from 'react-icons/bs';
 import { FiGlobe } from 'react-icons/fi';
@@ -46,11 +47,12 @@ const NavLinks = styled.div`
   }
 `;
 
-const NavLink = styled.a`
+const NavLink = styled(RouterLink)`
   color: ${({ theme }) => theme.text};
   font-weight: 500;
   transition: color 0.2s;
   position: relative;
+  text-decoration: none;
   
   &:after {
     content: '';
@@ -63,7 +65,7 @@ const NavLink = styled.a`
     transition: width 0.3s ease;
   }
   
-  &:hover {
+  &:hover, &.active {
     color: ${({ theme }) => theme.primary};
     
     &:after {
@@ -84,6 +86,22 @@ const IconButton = styled.button`
   color: ${({ theme }) => theme.text};
   font-size: 1.2rem;
   cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  
+  &:hover {
+    color: ${({ theme }) => theme.primary};
+    background-color: ${({ theme }) => theme.shadow};
+  }
+`;
+
+const ExternalLink = styled.a`
+  color: ${({ theme }) => theme.text};
+  font-size: 1.2rem;
   padding: 0.5rem;
   border-radius: 50%;
   display: flex;
@@ -124,26 +142,28 @@ const Navbar: React.FC = () => {
     <NavbarContainer>
       <NavbarContent>
         <LogoContainer>
-          <Logo src="public\images\githubherofigureimage.png" alt="Logo" />
+          <NavLink to="/">
+            <Logo src="https://github.com/healthjian.github.io/images/githubherofigureimage.png" alt="Logo" />
+          </NavLink>
         </LogoContainer>
         
         <NavLinks>
-          <NavLink href="#">{t('nav.blog')}</NavLink>
-          <NavLink href="#">{t('nav.projects')}</NavLink>
-          <NavLink href="#">{t('nav.about')}</NavLink>
-          <NavLink href="#">{t('nav.more')}</NavLink>
+          <NavLink to="/">{t('nav.blog')}</NavLink>
+          <NavLink to="/projects">{t('nav.projects')}</NavLink>
+          <NavLink to="/about">{t('nav.about')}</NavLink>
+          <NavLink to="/more">{t('nav.more')}</NavLink>
         </NavLinks>
         
         <IconsContainer>
-          <IconButton as="a" href="https://steamcommunity.com" target="_blank" aria-label="Steam">
+          <ExternalLink href="https://steamcommunity.com" target="_blank" aria-label="Steam">
             <FaSteam />
-          </IconButton>
-          <IconButton as="a" href="mailto:contact@example.com" aria-label="Email">
+          </ExternalLink>
+          <ExternalLink href="mailto:contact@example.com" aria-label="Email">
             <FaEnvelope />
-          </IconButton>
-          <IconButton as="a" href="https://github.com" target="_blank" aria-label="GitHub">
+          </ExternalLink>
+          <ExternalLink href="https://github.com" target="_blank" aria-label="GitHub">
             <FaGithub />
-          </IconButton>
+          </ExternalLink>
           <IconButton onClick={toggleTheme} aria-label="Toggle theme">
             {theme === 'light' ? <BsMoonFill /> : <BsSunFill />}
           </IconButton>

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import { NavLink as RouterLink } from 'react-router-dom';
 import { FaGithub, FaEnvelope, FaSteam } from 'react-icons/fa';
 
 const FooterContainer = styled.footer`
@@ -41,17 +42,31 @@ const FooterTitle = styled.h3`
   }
 `;
 
-const FooterLink = styled.a`
+const FooterLink = styled(RouterLink)`
   color: ${({ theme }) => theme.text};
   margin-bottom: 0.8rem;
-  transition: color 0.2s;
+  transition: color 0.2s, transform 0.2s;
   display: flex;
   align-items: center;
+  text-decoration: none;
   
   &:hover {
     color: ${({ theme }) => theme.primary};
     transform: translateX(3px);
-    transition: transform 0.2s;
+  }
+`;
+
+const ExternalFooterLink = styled.a`
+  color: ${({ theme }) => theme.text};
+  margin-bottom: 0.8rem;
+  transition: color 0.2s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  
+  &:hover {
+    color: ${({ theme }) => theme.primary};
+    transform: translateX(3px);
   }
 `;
 
@@ -118,17 +133,17 @@ const Footer: React.FC = () => {
       <FooterContent>
         <FooterSection>
           <FooterTitle>{t('footer.navigation')}</FooterTitle>
-          <FooterLink href="#">{t('footer.blog')}</FooterLink>
-          <FooterLink href="#">{t('footer.projects')}</FooterLink>
-          <FooterLink href="#">{t('footer.about')}</FooterLink>
-          <FooterLink href="#">{t('footer.more')}</FooterLink>
+          <FooterLink to="/">{t('footer.blog')}</FooterLink>
+          <FooterLink to="/projects">{t('footer.projects')}</FooterLink>
+          <FooterLink to="/about">{t('footer.about')}</FooterLink>
+          <FooterLink to="/more">{t('footer.more')}</FooterLink>
         </FooterSection>
         
         <FooterSection>
           <FooterTitle>{t('footer.resources')}</FooterTitle>
-          <FooterLink href="#">{t('footer.visitBlog')}</FooterLink>
-          <FooterLink href="#">{t('footer.technicalDocs')}</FooterLink>
-          <FooterLink href="#">{t('footer.dataAnalysis')}</FooterLink>
+          <FooterLink to="/">{t('footer.visitBlog')}</FooterLink>
+          <ExternalFooterLink href="#">{t('footer.technicalDocs')}</ExternalFooterLink>
+          <ExternalFooterLink href="#">{t('footer.dataAnalysis')}</ExternalFooterLink>
         </FooterSection>
         
         <FooterSection>
@@ -136,9 +151,9 @@ const Footer: React.FC = () => {
           <CurrentTime>
             {formattedDate} {formattedTime}
           </CurrentTime>
-          <FooterLink href="#">博客上线啦！</FooterLink>
-          <FooterLink href="#">增加了暗黑模式</FooterLink>
-          <FooterLink href="#">支持中英文切换</FooterLink>
+          <ExternalFooterLink href="#">博客上线啦！</ExternalFooterLink>
+          <ExternalFooterLink href="#">增加了暗黑模式</ExternalFooterLink>
+          <ExternalFooterLink href="#">支持中英文切换</ExternalFooterLink>
         </FooterSection>
       </FooterContent>
       
